@@ -1,0 +1,226 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#cielo {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: lightblue;
+    position: relative;
+}
+
+.nube {
+    width: 200px;
+    height: 60px;
+    background: #ffc0cb;
+    border-radius: 50px;
+    position: absolute;
+    filter: blur(4px);
+    box-shadow: 0 0 30px #ffb6c9;
+    animation: flotar 8s ease-in-out infinite alternate;
+}
+
+.nube::before,
+.nube::after {
+    content: "";
+    position: absolute;
+    background: #ffc0cb;
+    border-radius: 50%;
+}
+
+.nube::before {
+    width: 90px;
+    height: 90px;
+    top: -40px;
+    left: 25px;
+}
+
+.nube::after {
+    width: 110px;
+    height: 110px;
+    top: -55px;
+    right: 20px;
+}
+
+/* Waos deja de revisar el codigo fuente */
+.nube1 { top: 20%; left: 5%; }
+.nube2 { top: 35%; left: 40%; transform: scale(0.7); }
+.nube3 { top: 65%; left: 10%; transform: scale(1.2); }
+.nube4 { top: 15%; right: 5%; transform: scale(0.8); }
+.nube5 { bottom: 10%; right: 15%; transform: scale(1.1); }
+
+@keyframes flotar {
+    from { translate: -20px 0; }
+    to   { translate: 30px 10px; }
+}
+.escena {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 400px;
+    margin: -200px 0 0 -200px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    perspective: 1000px;
+    filter: drop-shadow(0 18px 14px rgba(107, 0, 15, 0.5));
+    scale: 0.8;
+    transition: left 0.6s ease, scale 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+    animation: levitar 4s ease-in-out infinite;
+}
+
+.escena::before {
+    content: "";
+    position: absolute;
+    inset: 30px;
+    clip-path: path('M170 310 C50 220 10 140 40 80 C70 25 145 30 170 90 C195 30 270 25 300 80 C330 140 290 220 170 310 Z');
+    background: rgba(255, 45, 80, 0.65);
+    filter: blur(24px);
+    opacity: 0.7;
+    pointer-events: none;
+    animation: brillo-corazon 2.8s ease-in-out infinite;
+}
+
+.escena:active { scale: 0.76; }          /* efecto de presionar */
+.escena:focus-visible { outline: 3px dashed white; outline-offset: 8px; }
+
+@keyframes levitar {
+    0%, 100% { translate: 0 0; }
+    50%      { translate: 0 -8px; }
+}
+
+.escena > span {
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+
+.interior {
+    clip-path: path('M200 340 C80 250 40 170 70 110 C100 55 175 60 200 120 C225 60 300 55 330 110 C360 170 320 250 200 340 Z');
+    background:
+        radial-gradient(ellipse at 38% 23%, rgba(255,255,255,0.42) 0 4%, transparent 16%),
+        radial-gradient(circle at 50% 42%, #ff5368 0%, #e4002b 42%, #a5001b 72%, #5d000d 100%);
+    filter: drop-shadow(0 10px 8px rgba(89, 0, 15, 0.4));
+}
+
+.nombre {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 25px;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 66px;
+    font-weight: bold;
+    font-style: italic;
+    letter-spacing: 4px;
+    color: #fff;
+    text-shadow: 0 0 14px rgba(255, 255, 255, 0.7), 0 3px 6px rgba(80, 0, 10, 0.6);
+    opacity: 0;
+    scale: 0.7;
+    transition: opacity 0.6s 0.4s, scale 0.6s 0.4s;
+}
+
+.abierto .nombre {
+    opacity: 1;
+    scale: 1;
+    animation: latir 1.2s ease-in-out 1.2s infinite;
+}
+
+@keyframes latir {
+    0%, 100% { scale: 1; }
+    50%      { scale: 1.06; }
+}
+
+@keyframes brillo-corazon {
+    0%, 100% { opacity: 0.5; scale: 0.96; }
+    50%      { opacity: 0.85; scale: 1.03; }
+}
+
+/* Quien revisa el codigo fuente? */
+.puerta {
+    transform-style: preserve-3d;
+    transform-origin: 55px 200px;
+    transition: transform 1.3s cubic-bezier(0.55, -0.1, 0.25, 1.1);
+}
+
+.abierto .puerta { transform: rotateY(-120deg); }
+
+.cara {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    clip-path: path('M200 340 C80 250 40 170 70 110 C100 55 175 60 200 120 C225 60 300 55 330 110 C360 170 320 250 200 340 Z');
+}
+
+.frente {
+    background:
+        linear-gradient(145deg, rgba(255,255,255,0.2), transparent 28%),
+        radial-gradient(circle at 35% 25%, #ff7180 0%, #f12645 30%, #c20020 65%, #710010 100%);
+}
+
+.frente::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 36px 19px at 108px 118px, rgba(255,255,255,0.65), transparent 70%),
+        radial-gradient(ellipse 26px 13px at 292px 112px, rgba(255,255,255,0.3), transparent 70%);
+}
+
+.frente::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #2a0009;
+    opacity: 0;
+    transition: opacity 1.3s;
+}
+
+.abierto .frente::after { opacity: 0.35; }
+
+.dorso {
+    transform: rotateY(180deg);
+    background:
+        linear-gradient(145deg, rgba(255,255,255,0.08), transparent 30%),
+        radial-gradient(circle at 50% 35%, #c40022 0%, #850014 60%, #4a0009 100%);
+}
+
+#pista {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 9%;
+    text-align: center;
+    font-family: system-ui, sans-serif;
+    font-size: 1.1rem;
+    color: rgb(5, 5, 5);
+    text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .escena.abierto {
+        left: calc(50% + min(25vw, calc(50vw - 160px)) + 10px);
+    }
+}
+
+@media (max-width: 480px) {
+    .escena { scale: 0.7; }
+    .escena.abierto {
+        left: calc(50% + max(0px, min(20vw, calc(50vw - 140px))) + 15px);
+    }
+    .escena:active { scale: 0.665; }
+}
